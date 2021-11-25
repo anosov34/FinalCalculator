@@ -1,10 +1,12 @@
 package pro.sky.java.course2.calculator.finalcalculator.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.calculator.finalcalculator.service.CalculatorService;
 
+@RequestMapping("/calculator")
 @RestController
 public class ControllerCalculator {
     public final CalculatorService calculatorService;
@@ -15,38 +17,35 @@ public class ControllerCalculator {
     }
 
     @GetMapping
-    public String showWelcome() {
-        return calculatorService.welcome();
+    public String answerWelcome() {
+        return "Welcome to the calculator";
     }
 
-    @GetMapping(path = "/calculator")
-    public String showAnswerWelcome() {
-        return calculatorService.answerWelcome();
+
+    @GetMapping(path = "/plus")
+    public String showCountSum(@RequestParam double num1, double num2) {
+        return num1 + " + " + num2 + " = " + calculatorService.countSum(num1, num2);
     }
 
-    @GetMapping(path = "/calculator/plus")
-    public Object showCountSum(@RequestParam double num1, double num2) {
-        return calculatorService.countSum(num1, num2);
+    @GetMapping(path = "/minus")
+    public String showCountDifference(@RequestParam double num1, double num2) {
+        return num1 + " - " + num2 + " = " + calculatorService.countDifference(num1, num2);
     }
 
-    @GetMapping(path = "/calculator/minus")
-    public Object showCountDifference(@RequestParam double num1, double num2) {
-        return calculatorService.countDifference(num1, num2);
+    @GetMapping(path = "/multiply")
+    public String showMultiplyNumbers(@RequestParam double num1, double num2) {
+        return num1 + " * " + num2 + " = " + calculatorService.multiplyNumbers(num1, num2);
     }
 
-    @GetMapping(path = "/calculator/multiply")
-    public Object showMultiplyNumbers(@RequestParam double num1, double num2) {
-        return calculatorService.multiplyNumbers(num1, num2);
-    }
-//    Сразу оговорюсь по поводу штуки ниже. Я пока с трудом представляю, что конкретно я сделал, но цель заключалась
-//    в том, чтобы при делении на ноль передать пользователю, что так делать не нужно. Но поскольку и строку и дабл один
-//    метод не принимает, мне идея подсказала вот эту штуку с Обджектом. Я ещё не до конца понимаю, что это всё значит,
-//    но код работает и это греет мне сердце=)
 
-    @GetMapping(path = "/calculator/divide")
-    public Object showDivideNumbers(@RequestParam double num1, double num2) {
-        return calculatorService.divideNumbers(num1, num2);
+    @GetMapping(path = "/divide")
+    public String showDivideNumbers(@RequestParam double num1, double num2) {
+        if (num2 == 0) {
+            return "Don't do this, bro";
+        }
+        return num1 + " / " + num2 + " = " + calculatorService.divideNumbers(num1, num2);
 
     }
 }
+
 
