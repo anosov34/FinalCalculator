@@ -18,6 +18,10 @@ public class CalculatorServiceImpl implements CalculatorService {
     }
 
     public double divideNumbers(double num1, double num2) {
-        return num1 / num2;
+        if (num2 != 0) {
+            return num1 / num2;
+        }
+        throw new IllegalArgumentException();
     }
+
 }
