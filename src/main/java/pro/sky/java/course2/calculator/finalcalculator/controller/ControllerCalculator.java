@@ -40,9 +40,7 @@ public class ControllerCalculator {
 
     @GetMapping(path = "/divide")
     public String showDivideNumbers(@RequestParam double num1, double num2) {
-        if (num2 == 0) {
-            return "Don't do this, bro";
-        }
+
         return num1 + " / " + num2 + " = " + calculatorService.divideNumbers(num1, num2);
 
     }
